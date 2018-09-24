@@ -36,12 +36,22 @@ function CLARIN_Horizon_preprocess_html(&$vars) {
       'rel' => 'stylesheet',
       'type' => 'text/css'
     )
-  );  
+  );
+	
+  $compatibilityModeOff = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'http-equiv' => 'X-UA-Compatible',
+      'content' => 'IE=edge'
+    )
+  );
   
   // Add header meta tag for IE to head
   drupal_add_html_head($fontCssLinkSourceSansPro, 'fontCssLinkSourceSansPro');
   drupal_add_html_head($fontCssLinkRobotoSlab, 'fontCssLinkRobotoSlab');
   drupal_add_html_head($fontCssLinkRobotoSlab, 'fontCssLinkSourceCodePro');
+  drupal_add_html_head($compatibilityModeOff, 'compatibilityModeOff');
 }
 
 /**

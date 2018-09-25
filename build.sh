@@ -1,5 +1,5 @@
 #!/bin/sh
-PACKAGE_VERSION="0.1.5"
+PACKAGE_VERSION="0.1.6-RC4"
 DRUPAL_BOOTSTRAP_VERSION="7.x-3.12"
 BASE_STYLE_REPOSITORY="https://github.com/twagoo/base_style"
 BASE_STYLE_VERSION="0.3.0-alpha3"

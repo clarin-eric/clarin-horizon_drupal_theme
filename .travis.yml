@@ -17,6 +17,7 @@ deploy:
     secure: "$DEPLOY_OAUTH_TOKEN"
   file: "target/CLARIN_Horizon-${THEME_VERSION}.tgz"
   on:
+    all_branches: true
     tags: true
   overwrite: true
   provider: releases

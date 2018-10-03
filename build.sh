@@ -1,9 +1,9 @@
 #!/bin/sh
 PACKAGE_VERSION="0.1.6"
 DRUPAL_BOOTSTRAP_VERSION="7.x-3.12"
-BASE_STYLE_REPOSITORY="https://github.com/twagoo/base_style"
-BASE_STYLE_VERSION="0.3.0-alpha3"
-BASE_STYLE_TAG="1.3.0-alpha3" #should normally be "${BASE_STYLE_VERSION}"
+BASE_STYLE_REPOSITORY="https://github.com/clarin-eric/base_style"
+BASE_STYLE_VERSION="0.3.0"
+BASE_STYLE_TAG="0.3.0" #should normally be "${BASE_STYLE_VERSION}"
 
 BASE_DIRECTORY=$(cd "$(dirname "$BASH_SOURCE[0]")"; pwd)
 OUTPUT_DIRECTORY="${BASE_DIRECTORY}/target"

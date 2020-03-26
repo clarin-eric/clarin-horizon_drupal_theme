@@ -1,4 +1,4 @@
-sudo: false
+os: linux
 git:
   depth: 1
 addons:
@@ -11,7 +11,7 @@ addons:
 script:
   - sh -x ./build.sh
 env:
-  - THEME_VERSION="0.2.1"
+  - THEME_VERSION=${TRAVIS_TAG:-$TRAVIS_BRANCH-$TRAVIS_COMMIT}
 deploy:
   api_key:
     secure: "$DEPLOY_OAUTH_TOKEN"

@@ -1,6 +1,7 @@
 #!/bin/sh
 PACKAGE_VERSION="${THEME_VERSION}"
 DRUPAL_BOOTSTRAP_VERSION="7.x-3.26"
+DRUPAL_BOOTSTRAP_STYLES_VERSION="0.0.2"
 BASE_STYLE_REPOSITORY="https://github.com/clarin-eric/base_style"
 BASE_STYLE_VERSION="0.4.0"
 BASE_STYLE_TAG="${BASE_STYLE_VERSION}"
@@ -28,7 +29,7 @@ mkdir -p "${BUILD_DIRECTORY}/js"
 if ! hash lessc 2>/dev/null; then
     echo 'Installing LESS compiler...'
     npm set progress='false'
-    npm install --silent --prefix=${OUTPUT_DIRECTORY} --depth '0' 'less@2.7.3' 'less-plugin-clean-css'
+    npm install --silent --prefix=${OUTPUT_DIRECTORY} --depth '0' 'less' 'less-plugin-clean-css'
     LESSC=${OUTPUT_DIRECTORY}/'node_modules/less/bin/lessc'
 else
     LESSC=`which lessc`
@@ -39,9 +40,14 @@ echo 'Using lessc: ' ${LESSC}
 echo 'Retrieving dependencies...'
 # Retrieve bootstrap drupal theme
 curl --fail --location --show-error --silent --tlsv1 \
-    "https://github.com/drupalprojects/bootstrap/archive/${DRUPAL_BOOTSTRAP_VERSION}.tar.gz" | \
-        tar -x -z -p --strip-components 1 -C "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/" -f - "bootstrap-${DRUPAL_BOOTSTRAP_VERSION}"
-
+    "https://ftp.drupal.org/files/projects/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}.tar.gz" | \
+        tar -x -z -p --strip-components 1 -C "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/" -f - "bootstrap"
+mv "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/starterkits/THEMENAME" "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/starterkits/less"
+# Retrieve drupal bootstrap styles
+curl --fail --location --show-error --silent --tlsv1 \
+    "https://codeload.github.com/unicorn-fail/drupal-bootstrap-styles/tar.gz/v${DRUPAL_BOOTSTRAP_STYLES_VERSION}" | \
+        tar -x -z -p --strip-components 4 -C "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/starterkits/less/" \
+        -f - "drupal-bootstrap-styles-${DRUPAL_BOOTSTRAP_STYLES_VERSION}/src/3.x.x/7.x-3.x/less"
 # Retrieve CLARIN base style
 curl --fail --location --show-error --silent --tlsv1 \
 	"${BASE_STYLE_REPOSITORY}/releases/download/${BASE_STYLE_TAG}/base-style-${BASE_STYLE_VERSION}-less-with-bootstrap.jar" | \

@@ -1,3 +1,5 @@
+language: generic
+dist: xenial
 os: linux
 git:
   depth: 1
@@ -13,8 +15,7 @@ script:
 env:
   - THEME_VERSION=${TRAVIS_TAG:-$TRAVIS_BRANCH-$TRAVIS_COMMIT}
 deploy:
-  api_key:
-    secure: "$DEPLOY_OAUTH_TOKEN"
+  token: $DEPLOY_OAUTH_TOKEN
   file: "target/CLARIN_Horizon-${THEME_VERSION}.tgz"
   on:
     all_branches: true

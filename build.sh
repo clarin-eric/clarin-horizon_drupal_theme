@@ -43,6 +43,9 @@ curl --fail --location --show-error --silent --tlsv1 \
     "https://ftp.drupal.org/files/projects/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}.tar.gz" | \
         tar -x -z -p --strip-components 1 -C "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/" -f - "bootstrap"
 mv "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/starterkits/THEMENAME" "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/starterkits/less"
+sed '/^;.*bootstrap\/js.*/s/^;//' "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/starterkits/less/THEMENAME.starterkit" | \
+    sed '/^;settings\[bootstrap_cdn_provider\].*/s/^;//' > "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/starterkits/less/less.starterkit"
+rm "${OUTPUT_DIRECTORY}/bootstrap-${DRUPAL_BOOTSTRAP_VERSION}/starterkits/less/THEMENAME.starterkit"
 # Retrieve drupal bootstrap styles
 curl --fail --location --show-error --silent --tlsv1 \
     "https://codeload.github.com/unicorn-fail/drupal-bootstrap-styles/tar.gz/v${DRUPAL_BOOTSTRAP_STYLES_VERSION}" | \
